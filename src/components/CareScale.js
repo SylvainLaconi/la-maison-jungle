@@ -1,30 +1,33 @@
-import sun from "../assets/sun.svg";
-import water from "../assets/water.svg";
+import Sun from "../assets/sun.svg";
+import Water from "../assets/water.svg";
+
+// Ici, il s'agit d'une manière de faire.
+//Vous auriez aussi pu utiliser une fonction qui retourne l'élément souhaité, ou bien faire directement des conditions
+const quantityLabel = {
+  1: "peu",
+  2: "modérément",
+  3: "beaucoup",
+};
 
 function CareScale({ scaleValue, careType }) {
   const range = [1, 2, 3];
   const scaleType =
     careType === "light" ? (
-      <img src={sun} alt="sun" />
+      <img src={Sun} alt="sun-icon" />
     ) : (
-      <img src={water} alt="water" />
+      <img src={Water} alt="water-icon" />
     );
 
-  const HandleAlertCare = () => {
-    let careAction = "";
-    careType === "water" ? (careAction = "arrosage") : (careAction = "lumière");
-
-    if (scaleValue === 1) {
-      return alert(`Cette plante requiert peu de ${careAction}`);
-    } else if (scaleValue === 2) {
-      return alert(`Cette plante requiert modèrement de ${careAction}`);
-    } else {
-      alert(`Cette planet requiert beaucoup de ${careAction}`);
-    }
-  };
-
   return (
-    <div onClick={HandleAlertCare}>
+    <div
+      onClick={() =>
+        alert(
+          `Cette plante requiert ${quantityLabel[scaleValue]} ${
+            careType === "light" ? "de lumière" : "d'arrosage"
+          }`
+        )
+      }
+    >
       {range.map((rangeElem) =>
         scaleValue >= rangeElem ? (
           <span key={rangeElem.toString()}>{scaleType}</span>
